@@ -16,7 +16,7 @@ encoded = Dense(encoding_dim, activation='relu',activity_regularizer=regularizer
 hidden_1 = Dense(300, activation='sigmoid')(encoded)
 
 # "decoded" is the lossy reconstruction of the input
-decoded = Dense(784, activation='sigmoid')(encoded)
+decoded = Dense(784, activation='sigmoid')(hidden_1)
 
 # this model maps an input to its reconstruction
 autoencoder = Model(input_img, decoded)
