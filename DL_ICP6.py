@@ -3,6 +3,7 @@ from keras.models import Model
 import os
 from keras import regularizers
 from keras import callbacks as ck
+import numpy as np
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 # this is the size of our encoded representations
 encoding_dim = 32
@@ -20,7 +21,6 @@ decoded = Dense(784, activation='sigmoid')(hidden_1)
 
 # this model maps an input to its reconstruction
 autoencoder = Model(input_img, decoded)
-
 #seperate encoder model
 # this model maps an input to its encoded representation
 encoder = Model(input_img, encoded)
@@ -28,10 +28,9 @@ encoder = Model(input_img, encoded)
 #let's create a seperate decoder model
 # create a placeholder for an encoded (32-dimensional) input
 encoded_input = Input(shape=(encoding_dim,))
-# retrieve the last layer of the autoencoder model
-decoder_layer = autoencoder.layers[-1]
-# create the decoder model
-decoder = Model(encoded_input, decoder_layer(encoded_input))
+decoder_layer = autoencoder.layers[-2](encoded_input)
+decoder_layer = autoencoder.layers[-1](decoder_layer)
+decoder = Model(encoded_input, decoder_layer)
 
 
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy',metrics=['accuracy'])
