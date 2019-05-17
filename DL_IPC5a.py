@@ -58,18 +58,18 @@ print(X_test.shape,Y_test.shape)
 batch_size = 32
 model = createmodel()
 model.fit(X_train, Y_train, epochs = 5, batch_size=batch_size, verbose = 2)
-from keras.models import load_model
 
+from keras.models import load_model
 model.save('my_model.h5')
 model = load_model('my_model.h5')
 
 text = np.array(['A lot of good things are happening. We are respected again throughout the world, and that is a great thing'])
 print(text.shape)
-pred=tokenizer.texts_to_sequences(text)
+pred = tokenizer.texts_to_sequences(text)
 pred=pad_sequences(pred,maxlen=28)
+prediction = model.predict(pred)
 print(pred)
-tensorboard = TensorBoard(log_dir="logs/{}",histogram_freq=0, write_graph=True, write_images=True)
-model.fit(X_train, y_train, nb_epoch=epochs, batch_size=32,callbacks=[tensorboard])
+##
 score,acc = model.evaluate(X_test,Y_test,verbose=2,batch_size=batch_size)
 print(score)
 print(acc)

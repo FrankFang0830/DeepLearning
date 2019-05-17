@@ -31,9 +31,7 @@ max_fatures = 2000
 tokenizer = Tokenizer(num_words=max_fatures, split=' ')
 tokenizer.fit_on_texts(data['v2'].values)
 X = tokenizer.texts_to_sequences(data['v2'].values)
-print(X)
 X = pad_sequences(X)
-print(X)
 embed_dim = 128
 lstm_out = 196
 def createmodel():
@@ -44,8 +42,6 @@ def createmodel():
     model.add(Dense(2,activation='softmax'))
     model.compile(loss = 'categorical_crossentropy', optimizer='adam',metrics = ['accuracy'])
     return model
-# print(model.summary())
-
 labelencoder = LabelEncoder()
 integer_encoded = labelencoder.fit_transform(data['v1'])
 y = to_categorical(integer_encoded)
