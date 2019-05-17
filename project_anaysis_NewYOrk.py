@@ -239,7 +239,7 @@ while True:
 
     print("The accuracy of this regression model will be")
     print(model.score(X_test, y_test))
-    b = np.array(20, dtype=np.int32).reshape(1, -1)
+    b = np.array(b, dtype=np.int32).reshape(1, -1)
     print("Your estimated fare will be:")
     print(model.predict(b.reshape(1, -1)))
 
